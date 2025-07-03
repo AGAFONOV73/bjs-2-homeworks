@@ -19,5 +19,16 @@ function solveEquation(a, b, c) {
 }
 
 function calculateTotalMortgage(percent, contribution, amount, countMonths) {
-  
+
+	const annualRate = percent / 100;
+	const S = amount - contribution;
+
+	const numerator = P * Math.pow(1 + P, countMonths);
+	const denominator = Math.pow(1 + P, countMonths) - 1;
+	const monthlyPayment = S * (numerator / denominator);
+
+	const totalAmount = monthlyPayment * countMonths;
+
+	return Number(totalAmount.toFixed(2));
+
 }
