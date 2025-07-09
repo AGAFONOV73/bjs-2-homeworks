@@ -1,19 +1,18 @@
 function getArrayParams(...arr) {
-if (arr.lenght === 0) {
-  return {
-    min: null,
-    max: null,
-    avg: null 
-  };
-}
+  if (arr.length === 0) {
+    return {
+      min: null,
+      max: null,
+      avg: null 
+    };
+  }
   const min = Math.min(...arr);
   const max = Math.max(...arr);
 
   const sum = arr.reduce((accumulator, current) => accumulator + current, 0);
 
-  const avg = sum / arr.lenght;
+  const avg = sum / arr.length;
   const avgRounded = Number(avg.toFixed(2));
-
 
   return { 
     min: min,
