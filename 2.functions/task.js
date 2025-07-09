@@ -1,11 +1,5 @@
 function getArrayParams(...arr) {
-  if (arr.length === 0) {
-    return {
-      min: null,
-      max: null,
-      avg: null 
-    };
-  }
+  
   const min = Math.min(...arr);
   const max = Math.max(...arr);
 
@@ -20,8 +14,8 @@ function getArrayParams(...arr) {
     avg: avgRounded 
   };
 }
-
-
+console.log(getArrayParams(-99, 99, 10));
+console.log(getArrayParams(1, 2, 3, -100, 10))
 
 function summElementsWorker(...arr) {
   if (arr.length === 0) {
