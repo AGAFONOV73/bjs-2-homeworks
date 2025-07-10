@@ -5,9 +5,7 @@ function compareArrays(arr1, arr2) {
    return arr1.every((value, index) => value === arr2[index]);
  }
  
- module.exports = {
-   compareArrays
- }
+
  console.log(compareArrays([4, 2, 3], [4, 2, 3]));
  console.log(compareArrays([1, 2], [1, 2, 3]));
  console.log(compareArrays([1, 2, 3], [3, 2, 1]));
@@ -28,9 +26,7 @@ function compareArrays(arr1, arr2) {
     return Math.round(averageAge * 10) / 10;
  }
  
- module.exports = {
-   getUsersNamesInAgeRange
- }
+
  
  const people = [
    {firstName: "Александр", secondName: "Карпов", age: 17, gender: "мужской"},
