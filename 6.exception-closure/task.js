@@ -17,24 +17,25 @@ function validateCount(value) {
 console.log(validateCount("3.14")); 
 console.log(validateCount("api"));  
 
+
+
 class Triangle {
 	constructor(a, b, c) {
 		if (a + b <= c || a + c <= b || b + c <= a) {
 			throw new Error("Треугольник с такими сторонами не существует");
 		}
-		this.a = a;
-		this.b = b;
-		this.c = c;
+		this._perimeter = a + b + c;
+        const p = this._perimeter / 2;
+		const areaValue = Math.sqrt(p * (p - a) * (p - b) * (p - c));
+		this._area = parseFloat(areaValue.toFixed(3));
 	}
 
 	get perimeter() {
-		return this.a + this.b + this.c;
+		return +this._perimeter;
 	}
 
 	get area() {
-		const p = this.perimeter / 2; 
-		const areaValue = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
-		return areaValue.toFixed(3);
+		return +this._area;
 	}
 }
 
