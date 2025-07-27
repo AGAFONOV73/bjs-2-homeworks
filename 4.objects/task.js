@@ -1,45 +1,61 @@
-function Student(name, gender, age) {
-  this.name = name;
-  this.gender = gender;
-  this.age = age;
-  this.marks = [];
-}
+class Student {
+  constructor(name) {
+    this.name = name;
+    this.marks = {}; 
+  }
 
-const student1 = new Student("Василиса", "женский", "19");
-const student2 = new Student("Артём", "мужской", "25");
-const student3 = new Student("Наталья", "женский", "30");
+  addMark(mark, subject) {
+    if (typeof mark !== 'number' || mark < 2 || mark > 5) {
+      console.log(`Оценка ${mark} не допустима. Она должна быть числом от 2 до 5.`);
+      return;
+    }
+    if (!this.marks.hasOwnProperty(subject)) {
+      this.marks[subject] = [];
+    }
+    this.marks[subject].push(mark);
+  }
 
-Student.prototype.setSubject = function (subjectName) {
-  this.subject = subjectName;
-}
-
-Student.prototype.addMarks = function (...marks) {
-    if (this.hasOwnProperty('marks') && Array.isArray(this.marks)) {
-        this.marks.push(...marks);
-      } else {
-        console.log('Добавление оценок невозможно: студент отчислен или свойства marks нет.');
-}
-}
-Student.prototype.getAverage = function () {
-    if (!this.hasOwnProperty('marks') || !Array.isArray(this.marks) || this.marks.length === 0) {
-        return 0;
-}
-const sum = this.marks.reduce((acc, mark) => acc + mark, 0);
-  return sum / this.marks.length;
-}
-Student.prototype.exclude = function (reason) {
-    delete this.subject;
-    delete this.marks;
+  getAverageBySubject(subject) {
+    if (!this.marks.hasOwnProperty(subject) || this.marks[subject].length === 0) {
+      return 0;
+    }
+    const total = this.marks[subject].reduce((sum, m) => sum + m, 0);
+    return total / this.marks[subject].length;
+  }
     
-    
-    this.excluded = reason;
+
+  getAverage() {
+    const subjects = Object.keys(this.marks);
+    if (subjects.length === 0) return 0;
+
+    const totalSum = subjects.reduce((acc, subject) => acc + this.getAverageBySubject(subject), 0);
+    return totalSum / subjects.length;
+  }
 }
 
-student1.setSubject("Математика");
-student1.addMarks(4, 5, 4);
-console.log(student1);
+const student = new Student("Олег Никифоров");
+student.addMark(5, "химия");
+student.addMark(5, "химия");
+student.addMark(4, "физика");
+student.addMark(3, "физика");
+student.addMark(2, "физика"); 
 
-console.log(student1.getAverage());
 
-student1.exclude('Хорошая успеваемость');
-console.log(student1);
+
+const physicsAvg = student.getAverageBySubject("физика");
+if (physicsAvg !== 0) {
+  console.log(`Средний балл по предмету физика ${physicsAvg}`);
+
+}else {
+  console.log("По предмету физика нет оценок");
+}
+
+const biologyAvg = student.getAverageBySubject("биология");
+if (biologyAvg !== 0) {
+  console.log(`Средний балл по предмету биология ${biologyAvg}`);
+} else {
+  console.log("По предмету биология оценок нет");
+}
+
+const overallAvg = student.getAverage();
+console.log(`Средний балл по всем предметам ${overallAvg}`);
